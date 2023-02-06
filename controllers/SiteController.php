@@ -2,9 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\Favorite;
+use app\models\Product;
 use app\models\SignupForm;
 use app\models\User;
 use Yii;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -63,7 +66,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $query = new Query();
+        $favorite_products = $query->from('favorite')->join('INNER JOIN', 'product', 'favorite.product_id = product.id')->where(['favorite.user_id' => Yii::$app->user->id])->all();
+        return $this->render('index', compact('favorite_products'));
     }
 
     /**
