@@ -9,9 +9,10 @@ class SignupForm extends Model
     public $username;
     public $password;
 
-    public function rules(){
+    public function rules()
+    {
         return [
-          [['username', 'password'], 'required'],
+            [['username', 'password'], 'required'],
         ];
     }
 

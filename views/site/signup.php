@@ -10,9 +10,9 @@ $form = ActiveForm::begin() ?>
 
 <?= $form->field($model, 'password')->passwordInput() ?>
 
-<div class="form-group">
-    <div class="col-lg-12">
-        <?= Html::submitButton('Регистрация', ['class' => 'btn btn-success']) ?>
+    <div class="form-group">
+        <div class="col-lg-12">
+            <?= Html::submitButton('Регистрация', ['class' => 'btn btn-success']) ?>
+        </div>
     </div>
-</div>
 <?php ActiveForm::end() ?>

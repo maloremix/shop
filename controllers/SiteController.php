@@ -66,9 +66,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $query = new Query();
-        $favorite_products = $query->from('favorite')->join('INNER JOIN', 'product', 'favorite.product_id = product.id')->where(['favorite.user_id' => Yii::$app->user->id])->all();
-        return $this->render('index', compact('favorite_products'));
+        $favoriteProducts = (new Query())->from('favorite')->join('INNER JOIN', 'product', 'favorite.product_id = product.id')->where(['favorite.user_id' => Yii::$app->user->id])->all();
+        $popularCategories = (new Query())->select('category_id, count(*)', )->from('feedback')->join('INNER JOIN', 'product', 'product.id = feedback.product_id')->groupBy('category_id');
+        $popularCategoriesTitle = (new Query())->from('category')->innerJoin(['u' => $popularCategories], 'u.category_id = category.id')->all();
+        return $this->render('index', compact('favoriteProducts', 'popularCategoriesTitle'));
     }
 
     /**
@@ -93,7 +94,8 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionSignup(){
+    public function actionSignup()
+    {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -104,7 +106,7 @@ class SiteController extends Controller
             $user->username = $model->username;
             $user->password = Yii::$app->security->generatePasswordHash($model->password);
 
-            if ($user->save()){
+            if ($user->save()) {
                 Yii::$app->user->login($user);
                 return $this->goHome();
             }

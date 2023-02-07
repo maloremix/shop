@@ -10,7 +10,8 @@ class SortForm extends Model
     public $methodSort;
 
 
-    public function rules(){
+    public function rules()
+    {
         return [
             [['methodSort'], 'safe'],
         ];

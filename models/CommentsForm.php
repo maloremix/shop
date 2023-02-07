@@ -8,10 +8,11 @@ class CommentsForm extends Model
 {
     public $comment;
 
-    public function rules(){
+    public function rules()
+    {
         return [
-          [['comment'], 'required'],
-          [['comment'], 'string'],
+            [['comment'], 'required'],
+            [['comment'], 'string'],
         ];
     }
 }

@@ -15,9 +15,10 @@ use yii\web\NotFoundHttpException;
 
 class ProductController extends Controller
 {
-    public function actionIndex($title){
+    public function actionIndex($title)
+    {
         $product = Product::find()->where(['title' => $title])->one();
-        if ($product === null){
+        if ($product === null) {
             throw new NotFoundHttpException();
         }
         $commentsForm = new CommentsForm();
@@ -33,7 +34,9 @@ class ProductController extends Controller
         }
         return $this->render('index', compact('product', 'commentsForm', 'feedbacks'));
     }
-    public function actionFavorite($title){
+
+    public function actionFavorite($title)
+    {
         $product = Product::find()->where(['title' => $title])->one();
         $favorite = new Favorite();
         $favorite->user_id = Yii::$app->user->id;
